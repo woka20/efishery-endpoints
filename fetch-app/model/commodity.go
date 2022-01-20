@@ -1,19 +1,19 @@
 package model
 
 type Commodity struct {
-	ID        string `json:id`
-	Comodity  string `json:commodity`
-	Province  string `json:province`
-	City      string `json:city`
+	ID        string `json:uuid`
+	Comodity  string `json:komoditas`
+	Province  string `json:area_provinsi`
+	City      string `json:area_kota`
 	Size      string `json:size`
-	IDRPrice  string `json:idr_price`
-	Date      string `json:date"`
+	IDRPrice  string `json:price`
+	Date      string `json:tgl_parsed`
 	Timestamp string `json:timestamp`
-	USDPrice  string `json:price_usd`
+	USDPrice  string `json:usd_price`
 }
 
 type CommodityDetailResult struct {
-	Province float64                   `json:province`
+	Province float64                   `json:area_provinsi`
 	Profit   map[string]map[string]int `json:profit`
 	Max      float64                   `json:max`
 	Min      float64                   `json:min`

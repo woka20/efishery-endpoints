@@ -47,12 +47,12 @@ func (r *RatesRepo) GetRates(rates string) (float64, error) {
 		log.Println(err)
 		err = errors.New("Failed to unmarshal conversion rate")
 		return 0, err
-	} else if NewRate.Ratio == 0 {
+	} else if NewRate.Rate == 0 {
 		log.Println(err)
 		err = errors.New("Conversion Rate is 0")
 		return 0, err
 	}
 
-	return NewRate.Ratio, nil
+	return NewRate.Rate, nil
 
 }
