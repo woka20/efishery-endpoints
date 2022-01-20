@@ -19,7 +19,7 @@ func ConfigInit() {
 		log.Fatal("Getting environment variables for config Failed")
 	}
 
-	PORT = os.Getenv("SERVER_PORT")
+	PORT = os.Getenv("PORT")
 	FILE_PATH = os.Getenv("FILE_PATH")
 	SECRET = os.Getenv("SECRET")
 

@@ -24,8 +24,8 @@ func main() {
 	apps.Handle("GET", "/token", tokenHandle.GetToken)
 	apps.Handle("GET", "/claims", tokenHandle.GetClaims)
 
-	listenPort := fmt.Sprintf(":%s", config.PORT)
+	listenPort := config.PORT
 	fmt.Println("Server Ready!")
 
-	apps.Listen(listenPort)
+	apps.Listen(":" + listenPort)
 }
