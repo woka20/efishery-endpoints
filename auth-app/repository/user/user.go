@@ -27,15 +27,16 @@ func (u *UserRepo) InputData(user model.User) (err error) {
 	file, err := os.OpenFile(config.FILE_PATH, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Println(err)
+
 		return err
 	}
 	defer file.Close()
 
 	timestamp := time.Now()
 	csvWriter := csv.NewWriter(file)
-	csvWriter.Write([]string{user.Name, user.Phone, user.Role, user.Password, timestamp.Format("01 Jan 01 10:07 MST")})
+	csvWriter.Write([]string{user.Name, user.Phone, user.Role, user.Password, timestamp.Format("2006-01-02 15:04:05")})
 
-	log.Println("Register user", user.Name, "at", timestamp.Format("01 Jan 01 10:07 MST"))
+	log.Println("Register user", user.Name, "at", timestamp.Format("2006-01-02 15:04:05"))
 
 	csvWriter.Flush()
 
@@ -78,7 +79,7 @@ func (u *UserRepo) GetListUser() (users []model.User, err error) {
 
 }
 
-func (u *UserRepo) GetDetailByPasswordPhone(pass, phone string) (user model.User, err error) {
+func (u *UserRepo) GetDetailByPasswordPhone(phone, pass string) (user model.User, err error) {
 	users, err := u.GetListUser()
 
 	if err != nil {
@@ -88,12 +89,14 @@ func (u *UserRepo) GetDetailByPasswordPhone(pass, phone string) (user model.User
 		return user, err
 	}
 
-	for _, user := range users {
-		if user.Password == pass && user.Phone == phone {
-			return user, nil
+	for _, person := range users {
+
+		if person.Phone == phone && person.Password == pass {
+
+			return person, nil
 		}
 	}
 
-	return user, errors.New("No data match with phone and password ")
+	return user, errors.New("No data match with phone and password")
 
 }

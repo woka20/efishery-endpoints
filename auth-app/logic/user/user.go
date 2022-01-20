@@ -55,7 +55,7 @@ func (u *UserLogic) AddNewUser(user model.User) (pass string, err error) {
 
 	}
 
-	return pass, nil
+	return user.Password, nil
 
 }
 
@@ -77,6 +77,7 @@ func (u *UserLogic) CheckUser(user model.User) (bool, error) {
 
 	if err != nil {
 		log.Println(err)
+
 		errors.New("Get List Problem")
 
 		return true, err
@@ -88,6 +89,6 @@ func (u *UserLogic) CheckUser(user model.User) (bool, error) {
 		}
 	}
 
-	return false, errors.New("Data Not Exist")
+	return false, nil
 
 }

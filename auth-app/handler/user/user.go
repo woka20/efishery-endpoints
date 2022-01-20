@@ -53,7 +53,7 @@ func (h *UserHandler) AddNewUser(ctx iris.Context) {
 		return
 	}
 
-	password, err := h.UserLogic.ProducePassword()
+	password, err := h.UserLogic.AddNewUser(user)
 
 	if err != nil {
 		ctx.StatusCode(500)
@@ -68,7 +68,7 @@ func (h *UserHandler) AddNewUser(ctx iris.Context) {
 	ctx.StatusCode(200)
 	ctx.JSON(model.SuccessResp{
 		Status: 200,
-		Data:   user.Password,
+		Data:   password,
 	})
 
 }

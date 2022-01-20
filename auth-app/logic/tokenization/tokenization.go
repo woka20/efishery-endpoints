@@ -66,11 +66,11 @@ func (t *TokenLogic) ParseToken(tokenstr string) (tokenization model.Token, err 
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		tokenization.Name = fmt.Sprint("%v", claims["Name"])
-		tokenization.Phone = fmt.Sprint("%v", claims["Phone"])
-		tokenization.Role = fmt.Sprint("%v", claims["Role"])
+		tokenization.Name = fmt.Sprint("", claims["name"])
+		tokenization.Phone = fmt.Sprint("", claims["phone"])
+		tokenization.Role = fmt.Sprint("", claims["role"])
 		// tokenization.Password = fmt.Sprint("%v", claims["Password"])
-		tokenization.Timestamp = fmt.Sprint("%v", claims["Timestamp"])
+		tokenization.Timestamp = fmt.Sprint("", claims["timestamp"])
 
 	} else {
 
