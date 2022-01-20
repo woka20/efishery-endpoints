@@ -13,7 +13,7 @@ var (
 	SECRET    string
 )
 
-func configInit() {
+func ConfigInit() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Getting environment variables for config Failed")
