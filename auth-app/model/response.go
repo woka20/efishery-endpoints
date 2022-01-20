@@ -1,11 +1,11 @@
 package model
 
 type SuccessResp struct {
-	status int         `json:status`
+	Status int         `json:status`
 	Data   interface{} `json:data`
 }
 
 type BadResp struct {
-	status  int    `json:status`
-	message string `json:message`
+	Status  int    `json:status`
+	Message string `json:message`
 }
