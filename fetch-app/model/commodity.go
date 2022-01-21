@@ -6,14 +6,14 @@ type Commodity struct {
 	Province  string `json:area_provinsi`
 	City      string `json:area_kota`
 	Size      string `json:size`
-	IDRPrice  string `json:price`
+	Price     string `json:price`
 	Date      string `json:tgl_parsed`
 	Timestamp string `json:timestamp`
 	USDPrice  string `json:usd_price`
 }
 
 type CommodityDetailResult struct {
-	Province float64                   `json:area_provinsi`
+	Province string                    `json:area_provinsi`
 	Profit   map[string]map[string]int `json:profit`
 	Max      float64                   `json:max`
 	Min      float64                   `json:min`
