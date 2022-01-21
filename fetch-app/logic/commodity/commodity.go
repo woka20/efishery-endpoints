@@ -11,6 +11,7 @@ import (
 	"log"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 type temporaryData struct {
@@ -22,6 +23,7 @@ type temporaryData struct {
 
 type CommodityLogicInterface interface {
 	GetList() (listCommodity []model.Commodity, err error)
+	AggregateData() (listCommodity []model.CommodityDetailResult, err error)
 }
 
 type CommodityLogic struct {
@@ -38,7 +40,7 @@ func NewCommodityLogic() CommodityLogicInterface {
 
 func (c *CommodityLogic) GetList() (listCommodity []model.Commodity, err error) {
 	commod, err := c.CommodityRepo.GetCommodityList()
-
+	// log.Println(commod)
 	if err != nil {
 		log.Println(err)
 		err := errors.New("Failed to get List")
@@ -85,7 +87,7 @@ func (c *CommodityLogic) USPriceAdd(listcommod []model.Commodity) (listresult []
 
 		dollarField := pricefloat64 * NewRate
 
-		value.USDPrice = fmt.Sprint("", dollarField)
+		value.USD_Price = fmt.Sprint("", dollarField)
 
 		listresult = append(listresult, value)
 
@@ -105,12 +107,18 @@ func (c *CommodityLogic) AggregateData() (listCommodity []model.CommodityDetailR
 	var datas []temporaryData
 
 	for _, value := range commod {
-		if value.Date == "" || value.Price == "" || value.Size == "" || value.Province == "" {
+		if value.Tgl_parsed == "" || value.Price == "" || value.Size == "" || value.Area_Provinsi == "" {
 			continue
 		}
 
-		dateTimes := utils.StringToTime(value.Date)
+		dateTimes := utils.StringToTime(value.Tgl_parsed)
 		year, week := dateTimes.ISOWeek()
+
+		// log.Println(dateTimes)
+
+		// log.Println(year)
+
+		// log.Println(week)
 
 		size, _ := strconv.Atoi(value.Size)
 		price, _ := strconv.Atoi(value.Price)
@@ -118,10 +126,10 @@ func (c *CommodityLogic) AggregateData() (listCommodity []model.CommodityDetailR
 		amount := size * price
 
 		temp := temporaryData{
-			Provinsi: value.Province,
+			Provinsi: value.Area_Provinsi,
 			Amount:   amount,
-			Tahun:    fmt.Sprintf("", year),
-			Minggu:   fmt.Sprintf("", week),
+			Tahun:    fmt.Sprint(year),
+			Minggu:   fmt.Sprint(week),
 		}
 
 		datas = append(datas, temp)
@@ -131,10 +139,11 @@ func (c *CommodityLogic) AggregateData() (listCommodity []model.CommodityDetailR
 	temporaryMap := make(map[string]map[string]map[string]int)
 
 	for _, value := range datas {
-		if province, ok := temporaryMap[value.Provinsi]; !ok {
+		provN := strings.ToUpper(value.Provinsi)
+		if province, ok := temporaryMap[provN]; !ok {
 			minggu := map[string]int{value.Minggu: value.Amount}
 			tahun := map[string]map[string]int{value.Tahun: minggu}
-			temporaryMap[value.Provinsi] = tahun
+			temporaryMap[provN] = tahun
 		} else {
 
 			if year, ok := province[value.Tahun]; !ok {
@@ -157,7 +166,7 @@ func (c *CommodityLogic) AggregateData() (listCommodity []model.CommodityDetailR
 		newData := model.CommodityDetailResult{
 			Province: key,
 			Profit:   value,
-			Min:      c.FindMin(value),
+			Min:      c.FindMin(value, int(c.FindMax(value))),
 			Max:      c.FindMax(value),
 			Average:  c.FindAvg(value),
 			Median:   c.FindMedian(value),
@@ -185,8 +194,8 @@ func (c *CommodityLogic) FindMax(profits map[string]map[string]int) float64 {
 
 }
 
-func (c *CommodityLogic) FindMin(profits map[string]map[string]int) float64 {
-	min := 0
+func (c *CommodityLogic) FindMin(profits map[string]map[string]int, max int) float64 {
+	min := max
 	for _, value := range profits {
 		for _, number := range value {
 			if number <= min {

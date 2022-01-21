@@ -27,8 +27,10 @@ func JWTIsExist(ctx iris.Context) {
 		return
 	}
 	tmpToken := strings.Split(headerToken, " ")
+	// log.Println("AUTO")
+	// log.Println(tmpToken)
 
-	tokenString := tmpToken[1]
+	tokenString := tmpToken[0]
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(config.SECRET), nil

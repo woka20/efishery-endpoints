@@ -3,15 +3,17 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
 
 var (
-	PORT      string
-	FILE_PATH string
-	SECRET    string
-	KEY_API   string
+	PORT           string
+	FILE_PATH      string
+	SECRET         string
+	KEY_API        string
+	CACHE_INTERVAL int
 )
 
 func ConfigInit() {
@@ -24,5 +26,6 @@ func ConfigInit() {
 	FILE_PATH = os.Getenv("FILE_PATH")
 	SECRET = os.Getenv("SECRET")
 	KEY_API = os.Getenv("KEY")
+	CACHE_INTERVAL, _ = strconv.Atoi(os.Getenv("CACHE_DURATION"))
 
 }

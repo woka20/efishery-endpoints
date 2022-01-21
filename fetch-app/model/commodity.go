@@ -1,15 +1,15 @@
 package model
 
 type Commodity struct {
-	ID        string `json:uuid`
-	Comodity  string `json:komoditas`
-	Province  string `json:area_provinsi`
-	City      string `json:area_kota`
-	Size      string `json:size`
-	Price     string `json:price`
-	Date      string `json:tgl_parsed`
-	Timestamp string `json:timestamp`
-	USDPrice  string `json:usd_price`
+	UUID          string `json:uuid`
+	Komoditas     string `json:komoditas`
+	Area_Provinsi string `json:area_provinsi`
+	Area_Kota     string `json:area_kota`
+	Size          string `json:size`
+	Price         string `json:price`
+	Tgl_parsed    string `json:tgl_parsed`
+	Timestamp     string `json:timestamp`
+	USD_Price     string `json:usd_price`
 }
 
 type CommodityDetailResult struct {

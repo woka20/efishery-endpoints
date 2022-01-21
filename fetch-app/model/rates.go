@@ -1,5 +1,5 @@
 package model
 
 type Rates struct {
-	Rate float64 `json:rate`
+	IDR_USD float64 `json:IDR_USD`
 }

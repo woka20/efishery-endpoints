@@ -41,18 +41,23 @@ func (r *RatesRepo) GetRates(rates string) (float64, error) {
 
 	content, _ := ioutil.ReadAll(response.Body)
 
-	err = json.Unmarshal(content, &NewRate)
+	sb := string(content)
 
+	err = json.Unmarshal([]byte(sb), &NewRate)
+
+	// err = json.NewDecoder(response.Body).Decode(&NewRate)
+
+	// log.Println(NewRate)
 	if err != nil {
 		log.Println(err)
 		err = errors.New("Failed to unmarshal conversion rate")
 		return 0, err
-	} else if NewRate.Rate == 0 {
+	} else if NewRate.IDR_USD == 0 {
 		log.Println(err)
 		err = errors.New("Conversion Rate is 0")
 		return 0, err
 	}
 
-	return NewRate.Rate, nil
+	return NewRate.IDR_USD, nil
 
 }
