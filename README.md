@@ -156,85 +156,85 @@ Authorization: Bearer <JWT>
 //HTTP Response (Application/JSON)
 {
 	"status_code": 200,
-    "data": [
-       {
-			"UUID": "51effbd1-11e6-4b42-8b1c-e3bb39dd7a94",
-			"Komoditas": "Ikan Lele",
-			"Area_Provinsi": "SULAWESI BARAT",
-			"Area_Kota": "BANDUNG",
-			"Size": "50",
-			"Price": "15000000",
-			"Tgl_parsed": "",
-			"Timestamp": "",
-			"USD_Price": "1046.77332"
-		},
-		{
+	    "data": [
+	       {
+				"UUID": "51effbd1-11e6-4b42-8b1c-e3bb39dd7a94",
+				"Komoditas": "Ikan Lele",
+				"Area_Provinsi": "SULAWESI BARAT",
+				"Area_Kota": "BANDUNG",
+				"Size": "50",
+				"Price": "15000000",
+				"Tgl_parsed": "",
+				"Timestamp": "",
+				"USD_Price": "1046.77332"
+			},
+			{
 
-			"UUID": "51effbd1-11e6-4b42-8b1c-e3bb39dd7a94",
-			"Komoditas": "Ikan Lele",
-			"Area_Provinsi": "SULAWESI BARAT",
-			"Area_Kota": "BANDUNG",
-			"Size": "50",
-			"Price": "15000000",
-			"Tgl_parsed": "",
-			"Timestamp": "",
-			"USD_Price": "1046.77332"
+				"UUID": "51effbd1-11e6-4b42-8b1c-e3bb39dd7a94",
+				"Komoditas": "Ikan Lele",
+				"Area_Provinsi": "SULAWESI BARAT",
+				"Area_Kota": "BANDUNG",
+				"Size": "50",
+				"Price": "15000000",
+				"Tgl_parsed": "",
+				"Timestamp": "",
+				"USD_Price": "1046.77332"
 
-		},
-        ...
-    ]
-}
-```
-* GET `/aggregateData`
--- This endpoint will fetch commodities data from https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4/list, clean the data from `nil`, `null`, and/or empty values, then returns the aggregated data by the `area_provinsi` value, weekly, and returns the max, min, avg, and median profit (assuming profit is `price` * `size`). This endpoint requires 'admin' role inside the valid JWT in the header of the request.
-```
-//HTTP Request Header (Bearer Token)
-Authorization: Bearer <JWT>
+			},
+	        ...
+	    ]
+	}
+	```
+	* GET `/aggregateData`
+	-- This endpoint will fetch commodities data from https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4/list, clean the data from `nil`, `null`, and/or empty values, then returns the aggregated data by the `area_provinsi` value, weekly, and returns the max, min, avg, and median profit (assuming profit is `price` * `size`). This endpoint requires 'admin' role inside the valid JWT in the header of the request.
+	```
+	//HTTP Request Header (Bearer Token)
+	Authorization: Bearer <JWT>
 
-//HTTP Response (Application/JSON)
-{
-	"status_code": 200,
-    "data": [
-		        
-		  {
+	//HTTP Response (Application/JSON)
+	{
+		"status_code": 200,
+	    "data": [
+			        
+			  {
 
-			"Province": "BALI",
-			"Profit": {
-				"2022": {
-						"2": 266664,
-						"3": 78375975680
-		                }
-		              },
-			"Max": 78375975680,
-			"Min": 266664,
-			"Average": 39188121172,
-			"Median": 39188121172
-		},
-		{
-			"Province": "BANTEN",
-			"Profit": {
-				"2022": {
-						"2": 2222
-						 }
-					  },
-			"Max": 2222,
-			"Min": 2222,
-			"Average": 2222,
-			"Median": 2222
-		},
-		{
-			"Province": "DKI JAKARTA",
-			"Profit": {
-				"2022": {
-					"2": 60000
-						}
-					},
-			"Max": 60000,
-			"Min": 60000,
-			"Average": 60000,
-			"Median": 60000
-		},
-        ...
+				"Province": "BALI",
+				"Profit": {
+					"2022": {
+							"2": 266664,
+							"3": 78375975680
+			                }
+			              },
+				"Max": 78375975680,
+				"Min": 266664,
+				"Average": 39188121172,
+				"Median": 39188121172
+			},
+			{
+				"Province": "BANTEN",
+				"Profit": {
+					"2022": {
+							"2": 2222
+							 }
+						  },
+				"Max": 2222,
+				"Min": 2222,
+				"Average": 2222,
+				"Median": 2222
+			},
+			{
+				"Province": "DKI JAKARTA",
+				"Profit": {
+					"2022": {
+						"2": 60000
+							}
+						},
+				"Max": 60000,
+				"Min": 60000,
+				"Average": 60000,
+				"Median": 60000
+			},
+	        ...
     ]
 }
 ```
