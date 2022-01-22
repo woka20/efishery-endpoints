@@ -30,7 +30,7 @@ func JWTIsExist(ctx iris.Context) {
 	// log.Println("AUTO")
 	// log.Println(tmpToken)
 
-	tokenString := tmpToken[0]
+	tokenString := tmpToken[1]
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte(config.SECRET), nil
@@ -95,7 +95,8 @@ func IsAdmin(ctx iris.Context) {
 		return
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		claim.Role = fmt.Sprintf("", claims["role"])
+		claim.Role = fmt.Sprintf("%v", claims["role"])
+
 	} else {
 		log.Println(err)
 		err = errors.New("Failed to parse private claims")
@@ -107,13 +108,14 @@ func IsAdmin(ctx iris.Context) {
 		return
 	}
 
-	if claim.Role != "admin" || claim.Role != "super Admin" {
+	if claim.Role != "admin" {
 		log.Println(err)
 		err = errors.New("Only administrator can access this page")
 		ctx.JSON(model.BadResp{
 			Status:  401,
 			Message: err.Error(),
 		})
+		return
 
 	}
 	ctx.Next()

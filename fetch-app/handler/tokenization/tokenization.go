@@ -26,7 +26,7 @@ func (h *TokenHandler) GetClaims(ctx iris.Context) {
 	bearerToken := ctx.GetHeader("Authorization")
 	tempString := strings.Split(bearerToken, " ")
 
-	tokenString := tempString[0]
+	tokenString := tempString[1]
 	claim, err := h.TokenLogic.ParseToken(tokenString)
 	if err != nil {
 		ctx.JSON(model.BadResp{

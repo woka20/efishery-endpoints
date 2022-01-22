@@ -23,7 +23,7 @@ func main() {
 	commoHandler := commodity.NewComodityHandler()
 
 	apps.Get("/commodityList", rt.JWTIsExist, commoHandler.GetList)
-	apps.Get("/aggregateData", rt.JWTIsExist, commoHandler.AggregateData)
+	apps.Get("/aggregateData", rt.IsAdmin, commoHandler.AggregateData)
 
 	tokenHandler := tokenization.NewTokenHandler()
 	apps.Get("/claims", rt.JWTIsExist, tokenHandler.GetClaims)
