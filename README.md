@@ -19,8 +19,8 @@ This repo for efishery backend engineer skill test -Woka-
 
 ### Auth-App Setup
 To set up the application, you need to have `docker` installed in your machine or `go1.16` if you want to run the app directly in your local machine. If you already have them, set these values in `auth-app/.env` for the app configuration.
-* `SERVER_PORT` to define which port that the application will listen to 
-	* The default port is `8080`
+* `PORT` to define which port that the application will listen to 
+	* The default port is `8081`
 * `FILE_PATH` to define the path to where the file to store user data
 * `SECRET` to define which secret to use to generate/parse JWT
 
