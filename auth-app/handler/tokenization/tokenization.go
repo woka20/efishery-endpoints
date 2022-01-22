@@ -71,6 +71,7 @@ func (t *TokenHandler) GetToken(ctx iris.Context) {
 
 func (t *TokenHandler) GetClaims(ctx iris.Context) {
 	headerToken := ctx.GetHeader("Authorization")
+
 	tmpToken := strings.Split(headerToken, " ")
 
 	tokenString := tmpToken[1]

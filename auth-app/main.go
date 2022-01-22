@@ -21,7 +21,7 @@ func main() {
 	apps.Handle("POST", "/adduser", userHandle.AddNewUser)
 
 	tokenHandle := tokenization.NewTokenHandler()
-	apps.Handle("GET", "/token", tokenHandle.GetToken)
+	apps.Handle("POST", "/token", tokenHandle.GetToken)
 	apps.Handle("GET", "/claims", tokenHandle.GetClaims)
 
 	listenPort := config.PORT
